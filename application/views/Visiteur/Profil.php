@@ -23,7 +23,7 @@
                         <?php if($this->session->profil == "Administrateur"): ?>
                             <li><a href="<?php echo base_url() ?>index.php/Administrateur/Administrateur/AcceuilAdmin">Partie Administrateur</a></li> <!-- Controllers Admin (ajout produit, confirm commande, etc..) -->
                         <?php else: ?>
-                        <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/Cart"><?php echo 'Deconnection' ?></li></a> <!-- Deconnection client + Modif Profil -->
+                        <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/Deconnection"><?php echo 'Deconnection' ?></li></a> <!-- Deconnection client + Modif Profil -->
                         <?php endif ?>
                     <?php endif ?>
                 </ul>

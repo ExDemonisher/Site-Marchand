@@ -13,6 +13,8 @@
             $requete = $this->db->get_where('client',$Utilisateur);
             return $requete->row(); // retour d'une seule ligne 
             // retour sous forme d'objets
-        }       
+        }     
+
     }
     
+?>

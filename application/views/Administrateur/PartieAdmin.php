@@ -16,16 +16,17 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if((!is_null($this->session->profil)) and ($this->session->profil == "Administrateur")):?>
-                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Administrateur/Administrateur/AcceuilAdmin">Partie Administrateur </a></li> <!-- Controllers Admin (ajout produit, confirm commande, etc..) -->
-                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/Deconnection">Deconnection</li></a> <!-- Deconnection client + Modif Profil -->
+                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Administrateur/Administrateur/AcceuilAdmin">Edition </a></li> <!-- Controllers Admin (ajout produit, confirm commande, etc..) -->
+                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/Deconnection">Deconnection</a></li> <!-- Deconnection client + Modif Profil -->
                     <?php endif ?>
                 </ul>
             </div>
         </nav>
     </header>
     <body>  
-        <h3> C'est ici que l'admin aura acces aux ajouts, a ce qui est visibles etc...</h3>
-
+        
+        <a href="<?php echo base_url() ?>index.php/Administrateur/Administrateur/Ajout">Ajout</a>
+        
     </body>
 
 </html>

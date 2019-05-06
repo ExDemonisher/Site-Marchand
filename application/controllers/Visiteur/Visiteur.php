@@ -127,18 +127,8 @@ class Visiteur extends CI_Controller
 
 
     public function Cart() {
-        $data = array(
-            'NoProduit' => 1,
-            'Quantite'  => 333,
-            'Prix'      => 321,
-            'Libelle'   => 'Test',
-        );
-        
-        $this->cart->insert($data); 
-
-        echo $this->cart->contents('Prix');
-
-        
+       
+    
     } //Fin Cart
 
 } 

@@ -1,0 +1,1 @@
+L'ajout du produit <?php echo $Libelle?> a ete effectue.
