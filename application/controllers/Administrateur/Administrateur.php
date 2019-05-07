@@ -57,7 +57,7 @@
                         $this->ModeleAdmin->AjouterUnProduit($donneesAInserer);
                         $DonneesInjectees['Libelle'] = $this->input->post('Libelle');
                         $this->load->view('Visiteur/EnteteVisiteur');
-                        $this->load->view('Administrateur/AjoutEffectue');
+                        $this->load->view('Administrateur/AjoutEffectue', $DonneesInjectees);
             }
         } // Fin Ajout
     }

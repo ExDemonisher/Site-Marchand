@@ -1,1 +1,1 @@
-L'ajout du produit <?php echo $Libelle?> a ete effectue.
+<?php echo $Libelle?> a été ajouté à la liste des produits mis en ventes.
