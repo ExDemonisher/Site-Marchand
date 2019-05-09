@@ -36,7 +36,7 @@
 
             if ($this->form_validation->run() === FALSE)
             {
-                $this->load->view('Visiteur/EnteteVisiteur');
+                $this->load->view('template/Entete');
                 $this->load->view('Administrateur/Ajout');
             }
             else
@@ -56,7 +56,7 @@
                     );
                         $this->ModeleAdmin->AjouterUnProduit($donneesAInserer);
                         $DonneesInjectees['Libelle'] = $this->input->post('Libelle');
-                        $this->load->view('Visiteur/EnteteVisiteur');
+                        $this->load->view('template/Entete');
                         $this->load->view('Administrateur/AjoutEffectue', $DonneesInjectees);
             }
         } // Fin Ajout

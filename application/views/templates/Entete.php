@@ -20,7 +20,7 @@
                         <li><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/Enregistrer">S'enregistrer</li></a>
                     <?php else: ?>
                     <?php if($this->session->profil == "Administrateur"): ?>
-                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Administrateur/Administrateur/AcceuilAdmin">Partie Administrateur </a></li> <!-- Controllers Admin (ajout produit, confirm commande, etc..) -->
+                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Administrateur/Administrateur/AcceuilAdmin">Edition </a></li> <!-- Controllers Admin (ajout produit, confirm commande, etc..) -->
                             <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/Deconnection">Deconnection</li></a> <!-- Deconnection client + Modif Profil -->
                         <?php else: ?>
                         <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/Profil"><?php echo $this->session->nom.' '.$this->session->prenom ?></li></a> <!-- Deconnection client + Modif Profil -->
@@ -30,6 +30,9 @@
                 </ul>
             </div>
         </nav>
-        
     </header>
     <body>  
+
+    </body>
+
+</html>

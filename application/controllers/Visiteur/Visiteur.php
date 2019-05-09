@@ -9,10 +9,12 @@ class Visiteur extends CI_Controller
         $this->load->helper('form');
 
         $this->load->model('ModeleVisiteur');
+        $this->load->model('ModeleArticle');
 
         $this->load->library('form_validation');
         $this->load->library('session'); 
         $this->load->library('cart');
+        $this->load->library('pagination');
     }
 
     public function APropos() {
@@ -131,4 +133,42 @@ class Visiteur extends CI_Controller
     
     } //Fin Cart
 
-} 
+    public function ListerUnArticle()//Lister tous les articles
+    {
+        $DonneesInjectees['lesArticles'] = $this->ModeleArticle->retournerArticles();
+        $DonneesInjectees['TitreDeLaPage'] = 'Liste Des articles';
+
+        $this->load->view('Visiteur/EnteteVisiteur');
+        $this->load->view('Visiteur/listerLesArticles', $DonneesInjectees);
+    } //Fin ListerLesArticles
+
+    public function listerLesArticlesAvecPagination() {
+        // les noms des entrées dans $config doivent être respectés
+        $config = array();
+        $config["base_url"] = site_url('visiteur/listerLesArticlesAvecPagination');
+        $config["total_rows"] = $this->ModeleArticle->nombreDArticles();
+        $config["per_page"] = 2; // nombre d'articles par page
+        $config["uri_segment"] = 3; /* le n° de la page sera placé sur le segment n°3 de URI,
+        pour la page 4 on aura : visiteur/listerLesArticlesAvecPagination/4       */ 
+        
+        $config['first_link'] = 'Première Page';
+        $config['next_link'] = '>>>';
+        $config['prev_link'] = '<<<';
+        $config['last_link'] = 'Dernière page';
+ 
+        $this->pagination->initialize($config);
+ 
+        $noPage = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; 
+        /* on récupère le n° de la page - segment 3 - si ce segment est vide, cas du premier appel 
+        de la méthode, on affecte 0 à $noPage */
+       
+        $DonneesInjectees['TitreDeLaPage'] = 'Bienvenue sur notre site marchand';
+        $DonneesInjectees["lesArticles"] = $this->ModeleArticle->RetournerArticlesLimite($config["per_page"], $noPage);
+        $DonneesInjectees["liensPagination"] = $this->pagination->create_links();
+ 
+        $this->load->view('templates/Entete');
+        $this->load->view('visiteur/listerLesArticlesAvecPagination', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
+    } // fin listerLesArticlesAvecPagination
+
+} //Fin Classe
