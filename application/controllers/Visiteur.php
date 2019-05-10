@@ -177,4 +177,18 @@ class Visiteur extends CI_Controller
         $this->load->view('templates/PiedDePage');
     } // fin listerLesArticlesAvecPagination
 
+    public function voirUnArticle($noArticle = NULL) // valeur par défaut de noArticle = NULL
+    {
+        $DonneesInjectees['unArticle'] = $this->ModeleArticle->retournerArticles($noArticle);
+        if (empty($DonneesInjectees['unArticle']))
+        {   // pas d'article correspondant au n°
+            show_404();
+        }
+        $DonneesInjectees['TitreDeLaPage'] = $DonneesInjectees['unArticle']['cTitre'];
+        // ci-dessus, entrée ['cTitre'] de l'entrée ['unArticle'] de $DonneesInjectees
+        $this->load->view('templates/Entete');
+        $this->load->view('visiteur/VoirUnArticle', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
+    } // voirUnArticle
+
 } //Fin Classe
