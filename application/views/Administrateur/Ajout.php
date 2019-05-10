@@ -1,7 +1,7 @@
 <html>
     <body>
         <?php echo validation_errors();
-        echo form_open('Administrateur/Administrateur/Ajout') ?>
+        echo form_open('Administrateur/Ajout') ?>
         <div align='center'>
         <label for="Categorie">Categorie : </label><br>
         <input type="text" name='Categorie' value=<?php echo set_value ('Categorie')?>><br>

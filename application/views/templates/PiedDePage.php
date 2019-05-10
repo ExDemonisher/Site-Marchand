@@ -1,3 +1,3 @@
-        <p><em>&copy; Lycée Rabelais</em></p>
+        <p><em>&copy; MWA</em></p>
     </body>
 </html>

@@ -1,5 +1,5 @@
 <?php echo validation_errors();
-    echo form_open('Visiteur/Visiteur/Enregistrer') ?>
+    echo form_open('Visiteur/Enregistrer') ?>
         <label for="txtTitre">Nom</label>
         <input type="input" name="NomUser" value="<?php echo set_value('NomUser'); ?>" /><br/>
 

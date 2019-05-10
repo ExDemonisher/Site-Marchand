@@ -1,6 +1,6 @@
 <?php
     echo validation_errors();
-    echo form_open('Visiteur/Visiteur/Connecter') ?>
+    echo form_open('Visiteur/Connecter') ?>
     <label for="EmailUser">Email</label>
     <input type="input" name="EmailUser" value="<?php echo set_value('EmailUser'); ?>" /><br/>
     <label for="Mdp">Mot de passe</label>

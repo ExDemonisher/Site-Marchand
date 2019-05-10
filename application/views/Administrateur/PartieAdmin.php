@@ -10,14 +10,14 @@
                     <h5>Nectron</h5>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="text-center mr-5 active"><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/PageDAccueilVisiteur">Page d'accueil</a></li>
-                    <li class="text-center "><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/Catalogue">Catalogue</a></li>
-                    <li class="text-center ml-5"><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/APropos">A propos</a></li>
+                    <li class="text-center mr-5 active"><a href="<?php echo base_url() ?>index.php/Visiteur/PageDAccueilVisiteur">Page d'accueil</a></li>
+                    <li class="text-center "><a href="<?php echo base_url() ?>index.php/Visiteur/Catalogue">Catalogue</a></li>
+                    <li class="text-center ml-5"><a href="<?php echo base_url() ?>index.php/Visiteur/APropos">A propos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if((!is_null($this->session->profil)) and ($this->session->profil == "Administrateur")):?>
-                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Administrateur/Administrateur/AcceuilAdmin">Edition </a></li> <!-- Controllers Admin (ajout produit, confirm commande, etc..) -->
-                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/Deconnection">Deconnection</a></li> <!-- Deconnection client + Modif Profil -->
+                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Administrateur/AcceuilAdmin">Edition </a></li> <!-- Controllers Admin (ajout produit, confirm commande, etc..) -->
+                            <li class="mr-4"><a href="<?php echo base_url() ?>index.php/Visiteur/Deconnection">Deconnection</a></li> <!-- Deconnection client + Modif Profil -->
                     <?php endif ?>
                 </ul>
             </div>
@@ -25,8 +25,9 @@
     </header>
     <body>  
         
-        <a href="<?php echo base_url() ?>index.php/Administrateur/Administrateur/Ajout">Ajout</a>
-        <a href="<?php echo base_url() ?>index.php/Visiteur/Visiteur/listerLesArticlesAvecPagination()">Liste</a>
+        <a href="<?php echo base_url() ?>index.php/Administrateur/Ajout">Ajout</a><br>
+        <a href="<?php echo base_url() ?>index.php/Visiteur/ListerLesArticlesAvecPagination">Liste</a><br>
+        <a href="<?php echo base_url() ?>index.php/Administrateur/Disponible">Disponible</a>
         
     </body>
 

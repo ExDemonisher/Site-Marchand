@@ -19,7 +19,7 @@
                 
             else:
                 // Redirect vers Acceuil
-                redirect('Visiteur/Visiteur/PageDAccueilVisiteur');
+                redirect('Visiteur/PageDAccueilVisiteur');
             endif;
         } // Fin Accueil Admin
 
@@ -60,5 +60,11 @@
                         $this->load->view('Administrateur/AjoutEffectue', $DonneesInjectees);
             }
         } // Fin Ajout
+
+        public function Disponible()
+        {
+            
+        } //Fin Disponible
+        
     }
 ?>

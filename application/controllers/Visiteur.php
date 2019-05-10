@@ -2,7 +2,8 @@
 class Visiteur extends CI_Controller
 {
 
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();        
         $this->load->helper('url');
         $this->load->helper('assets');
@@ -17,20 +18,24 @@ class Visiteur extends CI_Controller
         $this->load->library('pagination');
     }
 
-    public function APropos() {
+    public function APropos() 
+    {
         $this->load->view('Visiteur/EnteteVisiteur');
         $this->load->view('Visiteur/APropos');
     }
 
-    public function PageDAccueilVisiteur() {
+    public function PageDAccueilVisiteur()
+    {
         $this->load->view('Visiteur/EnteteVisiteur');
         $this->load->view('Visiteur/PageDAccueilVisiteur');
     }
-    public function Catalogue() {
+    public function Catalogue() 
+    {
         $this->load->view('Visiteur/EnteteVisiteur');
         $this->load->view("templates/Catalogue");
     }
-    public function Enregistrer() {        
+    public function Enregistrer() 
+    {        
         
         $this->form_validation->set_rules('NomUser', 'Nom', 'required');
         $this->form_validation->set_rules('PrenomUser', 'Prenom', 'required');
@@ -101,7 +106,7 @@ class Visiteur extends CI_Controller
 
                 var_dump($NomProfilRetourne);
                 
-                redirect('Visiteur/Visiteur/PageDAccueilVisiteur');
+                redirect('Visiteur/PageDAccueilVisiteur');
             } 
             else
             {    // utilisateur non trouvé on renvoie le formulaire de connexion 
@@ -111,10 +116,11 @@ class Visiteur extends CI_Controller
         }   
     } // Fin Connecter
 
-    public function Deconnection() {
+    public function Deconnection() 
+    {
         $this->session->sess_destroy();
 
-        redirect('Visiteur/Visiteur/PageDAccueilVisiteur');
+        redirect('Visiteur/PageDAccueilVisiteur');
     } // Fin Deconnection
 
     public function Profil() {
@@ -123,7 +129,7 @@ class Visiteur extends CI_Controller
             $this->load->view('Visiteur/Profil');
         else:
             // Redirect vers Acceuil
-            redirect('Visiteur/Visiteur/PageDAccueilVisiteur');
+            redirect('Visiteur/PageDAccueilVisiteur');
         endif;
     } //Fin Profil
 
@@ -142,19 +148,19 @@ class Visiteur extends CI_Controller
         $this->load->view('Visiteur/listerLesArticles', $DonneesInjectees);
     } //Fin ListerLesArticles
 
-    public function listerLesArticlesAvecPagination() {
+    public function ListerLesArticlesAvecPagination() 
+    {
         // les noms des entrées dans $config doivent être respectés
         $config = array();
-        $config["base_url"] = site_url('visiteur/listerLesArticlesAvecPagination');
+        $config["base_url"] = site_url('Visiteur/ListerLesArticlesAvecPagination');
         $config["total_rows"] = $this->ModeleArticle->nombreDArticles();
         $config["per_page"] = 2; // nombre d'articles par page
         $config["uri_segment"] = 3; /* le n° de la page sera placé sur le segment n°3 de URI,
-        pour la page 4 on aura : visiteur/listerLesArticlesAvecPagination/4       */ 
-        
-        $config['first_link'] = 'Première Page';
-        $config['next_link'] = '>>>';
-        $config['prev_link'] = '<<<';
-        $config['last_link'] = 'Dernière page';
+        pour la page 4 on aura : visiteur/listerLesArticlesAvecPagination/4       */        
+        $config['first_link'] = ' Première Page ';
+        $config['next_link'] = ' >>> ';
+        $config['prev_link'] = ' <<< ';
+        $config['last_link'] = ' Dernière page ';
  
         $this->pagination->initialize($config);
  
@@ -162,12 +168,12 @@ class Visiteur extends CI_Controller
         /* on récupère le n° de la page - segment 3 - si ce segment est vide, cas du premier appel 
         de la méthode, on affecte 0 à $noPage */
        
-        $DonneesInjectees['TitreDeLaPage'] = 'Bienvenue sur notre site marchand';
-        $DonneesInjectees["lesArticles"] = $this->ModeleArticle->RetournerArticlesLimite($config["per_page"], $noPage);
-        $DonneesInjectees["liensPagination"] = $this->pagination->create_links();
+        $DonneesInjectees['TitreDeLaPage'] = 'Bienvenue sur Nectron';
+        $DonneesInjectees['lesArticles'] = $this->ModeleArticle->RetournerArticlesLimite($config["per_page"], $noPage);
+        $DonneesInjectees['liensPagination'] = $this->pagination->create_links();
  
         $this->load->view('templates/Entete');
-        $this->load->view('visiteur/listerLesArticlesAvecPagination', $DonneesInjectees);
+        $this->load->view('Visiteur/ListerLesArticlesAvecPagination', $DonneesInjectees);
         $this->load->view('templates/PiedDePage');
     } // fin listerLesArticlesAvecPagination
 

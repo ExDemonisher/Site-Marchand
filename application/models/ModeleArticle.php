@@ -22,7 +22,6 @@
         	return $this->db->count_all("produit");
     	} // nombreDArticles
 
-
     	public function RetournerArticlesLimite($nombreDeLignesARetourner, $noPremiereLigneARetourner)
     	{ 	// Nota Bene : surcharge non supportée par PHP 
     		$this->db->limit($nombreDeLignesARetourner, $noPremiereLigneARetourner);
