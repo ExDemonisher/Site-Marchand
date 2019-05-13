@@ -11,7 +11,7 @@
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="text-center mr-5 active"><a href="<?php echo base_url() ?>index.php/Visiteur/PageDAccueilVisiteur">Page d'accueil</a></li>
-                    <li class="text-center "><a href="<?php echo base_url() ?>index.php/Visiteur/Catalogue">Catalogue</a></li>
+                    <li class="text-center "><a href="<?php echo base_url() ?>index.php/Visiteur/ListerLesArticlesAvecPagination">Catalogue</a></li>
                     <li class="text-center ml-5"><a href="<?php echo base_url() ?>index.php/Visiteur/APropos">A propos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

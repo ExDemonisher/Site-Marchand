@@ -20,19 +20,19 @@ class Visiteur extends CI_Controller
 
     public function APropos() 
     {
-        $this->load->view('Visiteur/EnteteVisiteur');
+        $this->load->view('templates/Entete');
         $this->load->view('Visiteur/APropos');
     }
 
     public function PageDAccueilVisiteur()
     {
-        $this->load->view('Visiteur/EnteteVisiteur');
+        $this->load->view('templates/Entete');
         $this->load->view('Visiteur/PageDAccueilVisiteur');
     }
     public function Catalogue() 
     {
-        $this->load->view('Visiteur/EnteteVisiteur');
-        $this->load->view("templates/Catalogue");
+        $this->load->view('templates/Entete');
+        $this->load->view('templates/Catalogue');
     }
     public function Enregistrer() 
     {        
@@ -49,12 +49,12 @@ class Visiteur extends CI_Controller
         $ConfirMdp= $this -> input -> get_post('ConfirmMdp');
             if ($this->form_validation->run() === FALSE)
         {
-            $this->load->view('Visiteur/EnteteVisiteur');
+            $this->load->view('templates/Entete');
             $this->load->view('Visiteur/Enregistrer');
         }
         elseif ($Mdp <> $ConfirMdp)
         {
-            $this->load->view('Visiteur/EnteteVisiteur');
+            $this->load->view('templates/Entete');
             $this->load->view('Visiteur/Enregistrer');
         }
         else
@@ -71,7 +71,7 @@ class Visiteur extends CI_Controller
             );
                 $this->ModeleVisiteur->insererUnClient($donneesAInserer); // appel du modèle
                 $DonneesInjectees['Nom'] = $this->input->post('NomUser');
-                $this->load->view('Visiteur/EnteteVisiteur');
+                $this->load->view('templates/Entete');
                 $this->load->view('Visiteur/insertionReussie', $DonneesInjectees);
         }
     } // Fin Enregistrer
@@ -144,7 +144,7 @@ class Visiteur extends CI_Controller
         $DonneesInjectees['lesArticles'] = $this->ModeleArticle->retournerArticles();
         $DonneesInjectees['TitreDeLaPage'] = 'Liste Des articles';
 
-        $this->load->view('Visiteur/EnteteVisiteur');
+        $this->load->view('templates/Entete');
         $this->load->view('Visiteur/listerLesArticles', $DonneesInjectees);
     } //Fin ListerLesArticles
 
@@ -190,5 +190,11 @@ class Visiteur extends CI_Controller
         $this->load->view('Visiteur/VoirUnArticle', $DonneesInjectees);
         $this->load->view('templates/PiedDePage');
     } // voirUnArticle
+
+    public function BarreDeRecherche()
+    {
+        $Liste['BarreDeRecherche']=$this->ModeleArticle->GetBarreDeRecherche($this->input->post('Recherche'));
+        $this->load->view('Visiteur/BarreDeRecherche', $Liste);
+    }
     
 } //Fin Classe

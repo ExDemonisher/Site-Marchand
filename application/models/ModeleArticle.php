@@ -34,6 +34,12 @@
 	            return $jeuDEnregsitrements;
 	        }
 	        return false;
-    	} // Fin RetournerArticlesLimite
+        } // Fin RetournerArticlesLimite
+        
+        public function GetBarreDeRecherche($Recherche) {
+            $Requete = "Select * from produit where LIBELLE = '.$Recherche.' ";
+            $query = $this->db->query($Requete);
+            return $query->result();
+        }
     } // Fin Classe
     
