@@ -184,11 +184,11 @@ class Visiteur extends CI_Controller
         {   // pas d'article correspondant au n°
             show_404();
         }
-        $DonneesInjectees['TitreDeLaPage'] = $DonneesInjectees['unArticle']['cTitre'];
+        $DonneesInjectees['TitreDeLaPage'] = $DonneesInjectees['unArticle']['LIBELLE'];
         // ci-dessus, entrée ['cTitre'] de l'entrée ['unArticle'] de $DonneesInjectees
         $this->load->view('templates/Entete');
-        $this->load->view('visiteur/VoirUnArticle', $DonneesInjectees);
+        $this->load->view('Visiteur/VoirUnArticle', $DonneesInjectees);
         $this->load->view('templates/PiedDePage');
     } // voirUnArticle
-
+    
 } //Fin Classe

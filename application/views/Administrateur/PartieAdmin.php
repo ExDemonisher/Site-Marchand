@@ -26,7 +26,7 @@
     <body>  
         
         <a href="<?php echo base_url() ?>index.php/Administrateur/Ajout">Ajout</a><br>
-        <a href="<?php echo base_url() ?>index.php/Visiteur/ListerLesArticlesAvecPagination">Liste</a><br>
+        <a href="<?php echo base_url() ?>index.php/Administrateur/ListerLesArticlesAvecPagination">Liste</a><br>
         <a href="<?php echo base_url() ?>index.php/Administrateur/Disponible">Disponible</a>
         
     </body>

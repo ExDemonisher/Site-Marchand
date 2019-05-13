@@ -4,7 +4,9 @@
         <!-- données récupérées en 'mode objet' -->
         </br></br>
             <?php foreach ($lesArticles as $unArticle): 
-                echo $unArticle->NOPRODUIT.'&nbsp;'.$unArticle->LIBELLE.'&nbsp;<br>';
+            //if dispo==1 then:
+                echo '<h3>'.anchor('visiteur/VoirUnArticle/'.$unArticle->NOPRODUIT,$unArticle->LIBELLE).'</h3>';
+            //end if
             endforeach;
             echo $liensPagination;
             ?>

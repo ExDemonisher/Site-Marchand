@@ -17,8 +17,7 @@
         public function AjouterUnProduit($donneesAInserer)
         {
             return $this->db->insert('produit', $donneesAInserer);
-        }
-        
-
+        } 
     }
+    
 ?>
