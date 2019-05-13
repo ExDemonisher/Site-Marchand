@@ -180,6 +180,7 @@ class Visiteur extends CI_Controller
     public function voirUnArticle($noArticle = NULL) // valeur par défaut de noArticle = NULL
     {
         $DonneesInjectees['unArticle'] = $this->ModeleArticle->retournerArticles($noArticle);
+        // $this->session->noproduit = $noArticle->
         if (empty($DonneesInjectees['unArticle']))
         {   // pas d'article correspondant au n°
             show_404();

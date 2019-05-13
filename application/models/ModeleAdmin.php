@@ -18,6 +18,10 @@
         {
             return $this->db->insert('produit', $donneesAInserer);
         } 
+        public function dispo($donneesaModifier, $NoProduit)
+        {
+            $this->db->update('produit',$donneesaModifier, array('NOPRODUIT' => $NoProduit));
+        }
     }
     
 ?>

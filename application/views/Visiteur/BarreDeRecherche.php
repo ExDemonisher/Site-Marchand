@@ -1,7 +1,7 @@
 <html>
     <body>
         <input type="text" class="searchBox" id="searchBox"> </input>
-        <input type="submit" value="Search" class="btnInput" id="btnInput"> </input>
+        <input type="submit" value="Recherche" class="btnInput" id="btnInput"> </input>
         <br><br>
         <?php
         echo '<hr>';

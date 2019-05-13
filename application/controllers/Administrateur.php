@@ -97,14 +97,24 @@
             $this->load->view('templates/PiedDePage');
         } // fin listerLesArticlesAvecPagination
     
-        public function Indisponible()
+        public function Indisponible($pNoProduit)
         {
-            
+            $donneesaModifier = array(
+                'DISPONIBLE' => 0
+            );
+            $this->ModeleAdmin->dispo($donneesaModifier, $pNoProduit);
+            var_dump($this->input->post());
+            //redirect('Visiteur/PageDAccueilVisiteur');
         } //Fin Indisponible
 
-        public function Disponible()
+        public function Disponible($pNoProduit)
         {
-            
+            $donneesaModifier = array(
+                'DISPONIBLE' => 1
+           );
+            $this->ModeleAdmin->dispo($donneesaModifier, $pNoProduit);
+            var_dump($this->input->post());
+            // redirect('Visiteur/PageDAccueilVisiteur');
         } //Fin Disponible
         
     }
