@@ -22,17 +22,20 @@ class Visiteur extends CI_Controller
     {
         $this->load->view('templates/Entete');
         $this->load->view('Visiteur/APropos');
+        $this->load->view('templates/PiedDePage');
     }
 
     public function PageDAccueilVisiteur()
     {
         $this->load->view('templates/Entete');
         $this->load->view('Visiteur/PageDAccueilVisiteur');
+        $this->load->view('templates/PiedDePage');
     }
     public function Catalogue() 
     {
         $this->load->view('templates/Entete');
         $this->load->view('templates/Catalogue');
+        $this->load->view('templates/PiedDePage');
     }
     public function Enregistrer() 
     {        

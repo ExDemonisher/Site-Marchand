@@ -14,18 +14,15 @@
             $this->load->library('pagination');
 
 
-
-        } // Fin Administrateur
-
-        public function AcceuilAdmin() {
-            if((!is_null($this->session->profil)) and ($this->session->profil == "Administrateur")):
-                // Redirect vers Partie Admin
-                $this->load->view("Administrateur/PartieAdmin");
-                
-            else:
+            if((is_null($this->session->profil)) or ($this->session->profil != "Administrateur")):
                 // Redirect vers Acceuil
                 redirect('Visiteur/PageDAccueilVisiteur');
             endif;
+            
+        } // Fin Administrateur
+        
+        public function AcceuilAdmin() {
+            $this->load->view("Administrateur/PartieAdmin");
         } // Fin Accueil Admin
 
         public function Ajout(){
@@ -103,19 +100,43 @@
                 'DISPONIBLE' => 0
             );
             $this->ModeleAdmin->dispo($donneesaModifier, $pNoProduit);
-            var_dump($this->input->post());
-            //redirect('Visiteur/PageDAccueilVisiteur');
+            redirect('Visiteur/PageDAccueilVisiteur');
         } //Fin Indisponible
 
         public function Disponible($pNoProduit)
         {
             $donneesaModifier = array(
                 'DISPONIBLE' => 1
-           );
+            );
+           
             $this->ModeleAdmin->dispo($donneesaModifier, $pNoProduit);
-            var_dump($this->input->post());
-            // redirect('Visiteur/PageDAccueilVisiteur');
+            redirect('Visiteur/PageDAccueilVisiteur');
         } //Fin Disponible
         
+        public function Modification($pNoProduit)
+        {
+            $this->form_validation->set_rules('NouvPrix', 'Prix', 'required');
+            $this->form_validation->set_rules('NouvQty', 'Quantite', 'required');
+            $NouvPrix = $this->input->get_post('NouvPrix');
+            $NouvQty= $this->input->get_post('NouvQty');
+            if ($this->form_validation->run() === FALSE)
+            {
+                $this->load->view('templates/Entete');
+                $this->load->view('Administrateur/ModifProduit');
+            }
+            else
+            {
+                $donneesAModifier = array(
+                'PRIXHT' => $this->input->post('NouvPrix'),
+                'QUANTITEENSTOCK' => $this->input->post('NouvQty')  
+                );
+                    $this->ModeleAdmin->ModifierUnProduit($donneesAModifier); // appel du modèle
+                    $donneesaInjectee['Prix'] = $this->input->post('NouvPrix');
+                    $donneesaInjectee['Quantite'] = $this->input->post('NouvQty');
+                    $this->load->view('templates/Entete');
+                    $this->load->view('Administrateur/ModifReussie', $DonneesInjectees);
+            }
+            
+        } //Fin ModifProduit
     }
 ?>

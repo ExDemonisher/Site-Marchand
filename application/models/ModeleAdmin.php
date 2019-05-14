@@ -22,6 +22,10 @@
         {
             $this->db->update('produit',$donneesaModifier, array('NOPRODUIT' => $NoProduit));
         }
+        public function ModifierUnProduit($donneesaModifier, $NoProduit)
+        {
+            $this->db->update('produit',$donneesaModifier, array('NOPRODUIT' => $NoProduit));
+        }
     }
     
 ?>

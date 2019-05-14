@@ -7,7 +7,7 @@
         <!--<img src="<?php echo base_url();?>/assets/images/banner.jpg" width=99,27060539752006%  title="ombrage" class="redim_img"/> -->
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <h5>Nectron</h5>
+                    <h5 class="text-white bg-dark">Nectron</h5>
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="text-center mr-5 active"><a href="<?php echo base_url() ?>index.php/Visiteur/PageDAccueilVisiteur">Page d'accueil</a></li>

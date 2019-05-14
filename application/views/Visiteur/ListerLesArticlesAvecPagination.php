@@ -7,6 +7,7 @@
             //if($unArticle['DISPONIBLE']==1)
             //{
                 echo '<h3>'.anchor('visiteur/VoirUnArticle/'.$unArticle->NOPRODUIT,$unArticle->LIBELLE).'</h3>';
+                echo '<img width="200" height="200" class="rounded-sm"'.img($unArticle->NOMIMAGE).'</img><br>';
             //}
             //else
             //{

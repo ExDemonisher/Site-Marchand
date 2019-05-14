@@ -32,9 +32,7 @@
     </header>
     <body>  
         <h3> Ceci est la page profil de l'utilisateur. </h3>
-        <h3> Il pourra consulter et modifier le contenu de son Panier </h3> 
-        <h3> Ainsi que ces données personnelles (@mail mdp) </h3>
-
+        <h3> Il pourra consulter et modifier le contenu de son Panier </h3>
     
     </body>
 
