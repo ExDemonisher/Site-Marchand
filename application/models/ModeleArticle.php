@@ -36,10 +36,12 @@
 	        return false;
         } // Fin RetournerArticlesLimite
         
-        public function GetBarreDeRecherche($Recherche) {
-            $Requete = "Select * from produit where LIBELLE = '.$Recherche.' ";
-            $query = $this->db->query($Requete);
-            return $query->result();
+        public function ModeleDeRecherche ($Recherche) {
+
+        }
+        
+        public function nombreDArticlesAvecRecherche($Recherche) {
+            
         }
     } // Fin Classe
     

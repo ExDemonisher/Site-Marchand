@@ -3,22 +3,30 @@
         <?php echo validation_errors();
         echo form_open('Administrateur/Ajout');
 
-        if((!is_null($this->session->profil)) and ($this->session->profil == "Administrateur")):
-            // Redirect vers Partie Admin
-            $this->load->view("Administrateur/Ajout");
+        // if((!is_null($this->session->profil)) and ($this->session->profil == "Administrateur")):
+        //     // Redirect vers Partie Admin
+        //     $this->load->view("Administrateur/Ajout");
             
-        else:
-            // Redirect vers Acceuil
-            redirect('Visiteur/PageDAccueilVisiteur');
-        endif;
+        // else:
+        //     // Redirect vers Acceuil
+        //     redirect('Visiteur/PageDAccueilVisiteur');
+        // endif;
 
         ?>
         <div align='center'>
-        <label for="Categorie">Categorie : </label><br>
-        <input type="text" name='Categorie' value=<?php echo set_value ('Categorie')?>><br>
-        
-        <label for="Marque">Numero de Marque : </label><br>
-        <input type="text" name='Marque' value=<?php echo set_value ('Marque')?>><br>
+        <label for="categorie">Categorie : </label> 
+        <select id="inputState"  name="categorie">
+            <?php foreach ($Categories as $Categorie):
+             echo '<option value="'.$Categorie['NOCATEGORIE'].'">'.$Categorie['LIBELLE'].'</option>'; 
+             endforeach ?> 
+        </select><br>
+
+        <label for="marque">Marque : </label> 
+        <select id="inputState"  name="marque"> 
+            <?php foreach ($Marques as $Marque):
+             echo '<option value="'.$Marque['NOMARQUE'].'">'.$Marque['NOM'].'</option>'; 
+             endforeach ?> 
+        </select>
         
         <label for="Libelle">Libelle : </label><br>
         <input type="text" name='Libelle' value=<?php echo set_value ('Libelle')?>><br>
@@ -38,10 +46,9 @@
         <label for="Quantite">Quantite : </label><br>
         <input type="integer" name='Quantite' value=<?php echo set_value ('Quantite')?>><br>
         
-        <label for ="Date">Date d'ajout : </label><br>
-        <input type="Date" name='Date' value=<?php echo set_value ('DateAjout')?>><br>
 
-        <input type="submit" name="submit" value="Ajouter" />
+        <button type="submit" name="submit"> Ajouter </button>
         </div>
+        <?php form_close()?>
     </body>
 </html>

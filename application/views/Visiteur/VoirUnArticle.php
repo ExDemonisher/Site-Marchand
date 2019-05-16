@@ -10,16 +10,15 @@
             <?php if((!is_null($this->session->profil)) and ($this->session->profil == "Administrateur"))
             {
                 // var_dump($this->session);
-                ?><a class="btn btn-primary" class="nav-link active" href="<?php echo base_url().'index.php/Administrateur/Modification/'.$unArticle['NOPRODUIT']; ?>">Modifier le Produit</a><?php
+                ?><a class="btn btn-primary" class="nav-link active" href="<?php echo base_url().'index.php/Administrateur/ModifPrix/'.$unArticle['NOPRODUIT']; ?>">Modifier le Prix</a><?php
+                
+                ?><a class="btn btn-primary" class="nav-link active" href="<?php echo base_url().'index.php/Administrateur/ModifQty/'.$unArticle['NOPRODUIT']; ?>">Modifier la Quantité</a><?php
                 
                 if($unArticle['DISPONIBLE']==1){
-                   //echo ('<a href="<?php echo base_url()index.php/Administrateur/Indisponible">Passer Indisponible</a><br>');?>
-                    <a class="btn btn-primary" class="nav-link active" href="<?php echo base_url().'index.php/Administrateur/Indisponible/'.$unArticle['NOPRODUIT']; ?>">Passer Indisponible</a><?php
+                    ?><a class="btn btn-primary" class="nav-link active" href="<?php echo base_url().'index.php/Administrateur/Indisponible/'.$unArticle['NOPRODUIT']; ?>">Passer Indisponible</a><?php
                 }
                 else {
-                    
                     ?><a class="btn btn-primary" class="nav-link active" href="<?php echo base_url().'index.php/Administrateur/Disponible/'.$unArticle['NOPRODUIT'];?>">Passer Disponible</a><?php
-                    //echo ('<a href="<?php echo base_url()index.php/Administrateur/Disponible">Passer Disponible</a><br>');
                 }
                 //if ($unArticle['QUANTITE']==0)
                 //{

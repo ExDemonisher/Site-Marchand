@@ -25,45 +25,49 @@
             $this->load->view("Administrateur/PartieAdmin");
         } // Fin Accueil Admin
 
-        public function Ajout(){
-            $this->form_validation->set_rules('Categorie', 'Categorie', 'required');
-            $this->form_validation->set_rules('Marque', 'Marque', 'required');
-            $this->form_validation->set_rules('Libelle', 'Libelle', 'required');
-            $this->form_validation->set_rules('Detail', 'Detail', 'required');
-            $this->form_validation->set_rules('Image', 'Image', 'required');
-            $this->form_validation->set_rules('PrixHT', 'PrixHT', 'required');
-            $this->form_validation->set_rules('TauxTVA', 'TauxTVA', 'required');
-            $this->form_validation->set_rules('Quantite', 'Quantite', 'required');
-            $this->form_validation->set_rules('Date', 'Date', 'required');
-            
-
-            if ($this->form_validation->run() === FALSE)
+        public function Ajout()
             {
-                $this->load->view('template/Entete');
-                $this->load->view('Administrateur/Ajout');
-                $this->load->view('templates/PiedDePage');
-            }
-            else
-            {
-                $Categorie=$this->ModeleAdmin->retournerCategorie($this->input->post('Categorie'));
-                $Marque=$this->ModeleAdmin->retournerMarque($this->input->post('Marque'));
-                $donneesAInserer = array(
-                    'NOCATEGORIE' => $Categorie->NOCATEGORIE,
-                    'NOMARQUE' => $Marque->NOMARQUE,
-                    'LIBELLE' => $this->input->post('Libelle'),
-                    'DETAIL' => $this->input->post('Detail'),
-                    'PRIXHT' => $this->input->post('PrixHT'),
-                    'TAUXTVA' => $this->input->post('TauxTVA'),
-                    'QUANTITEENSTOCK' => $this->input->post('Quantite'),
-                    'DATEAJOUT' => $this->input->post('Date'),
-                    'DISPONIBLE' => 1
-                    );
-                        $this->ModeleAdmin->AjouterUnProduit($donneesAInserer);
-                        $DonneesInjectees['Libelle'] = $this->input->post('Libelle');
-                        $this->load->view('template/Entete');
-                        $this->load->view('Administrateur/AjoutEffectue', $DonneesInjectees);
-            }
-        } // Fin Ajout
+                $this->load->helper('form');
+                $this->load->library('form_validation');
+        
+                $DonneesInjectees['Marques']       = $this->ModeleAdmin->retournerUneMarque();
+                $DonneesInjectees['Categories']    = $this->ModeleAdmin->retournerUneCategorie();
+        
+                // Ci-dessous on 'pose' les règles de validation
+                $this->form_validation->set_rules('Libelle', 'Titre', 'required');
+                $this->form_validation->set_rules('Detail', 'detail', 'required');
+                $this->form_validation->set_rules('categorie', 'Categorie', 'required');
+                $this->form_validation->set_rules('marque', 'marque', 'required');
+                $this->form_validation->set_rules('PrixHT', 'prixht', 'required');
+                $this->form_validation->set_rules('TauxTVA', 'taux', 'required');
+                $this->form_validation->set_rules('Image', 'image', 'required');
+                $this->form_validation->set_rules('Quantite', 'quantiter', 'required');
+        
+        
+                // l'image n'est pas obligatoire : pas required
+        
+                if ($this->form_validation->run() === FALSE) { // formulaire non validé, on renvoie le formulaire
+                    $this->load->view('templates/Entete');
+                    $this->load->view('Administrateur/Ajout', $DonneesInjectees);
+                    $this->load->view('templates/PiedDePage');
+                } else {
+                    $donneesAInserer = array(
+                        'LIBELLE' => $this->input->post('Libelle'),
+                        'DETAIL' => $this->input->post('Detail'),
+                        'NOCATEGORIE' => $this->input->post('categorie'),
+                        'NOMARQUE' => $this->input->post('marque'),
+                        'PRIXHT' => $this->input->post('PrixHT'),
+                        'TAUXTVA' => $this->input->post('TauxTVA'),
+                        'NOMIMAGE' => $this->input->post('Image'),
+                        'QUANTITEENSTOCK' => $this->input->post('Quantite'),
+                        'DATEAJOUT' => date('Y-m-d/H:i:s'),
+                        'DISPONIBLE' => 1
+        
+                    ); // cTitre, cTexte, cNomFichierImage : champs de la table tabarticle
+                    $this->ModeleAdmin->insererUnArticle($donneesAInserer); // appel du modèle
+                    $this->load->view('templates/Entete');
+                    $this->load->view('Administrateur/AjoutEffectue');
+                    $this->load->view('templates/PiedDePage'); } } // ajouterUnArticle
 
         public function ListerLesArticlesAvecPagination() 
         {
@@ -113,30 +117,51 @@
             redirect('Visiteur/PageDAccueilVisiteur');
         } //Fin Disponible
         
-        public function Modification($pNoProduit)
+        public function ModifPrix($pNoProduit)
         {
-            $this->form_validation->set_rules('NouvPrix', 'Prix', 'required');
-            $this->form_validation->set_rules('NouvQty', 'Quantite', 'required');
-            $NouvPrix = $this->input->get_post('NouvPrix');
-            $NouvQty= $this->input->get_post('NouvQty');
+            $this->form_validation->set_rules('NouvPrix', 'NouvPrix', 'required');
+
             if ($this->form_validation->run() === FALSE)
             {
                 $this->load->view('templates/Entete');
-                $this->load->view('Administrateur/ModifProduit');
+                $this->load->view('Administrateur/ModifPrixProduit');
+                $this->load->view('templates/PiedDePage');
             }
             else
             {
                 $donneesAModifier = array(
-                'PRIXHT' => $this->input->post('NouvPrix'),
-                'QUANTITEENSTOCK' => $this->input->post('NouvQty')  
-                );
-                    $this->ModeleAdmin->ModifierUnProduit($donneesAModifier); // appel du modèle
-                    $donneesaInjectee['Prix'] = $this->input->post('NouvPrix');
-                    $donneesaInjectee['Quantite'] = $this->input->post('NouvQty');
-                    $this->load->view('templates/Entete');
-                    $this->load->view('Administrateur/ModifReussie', $DonneesInjectees);
+                'PRIXHT' => $this->input->post('NouvPrix')
+            );
+            $this->ModeleAdmin->ModifierUnProduit($donneesAModifier, $pNoProduit); // appel du modèle
+            $donneesaInjectee['Prix'] = $this->input->post('NouvPrix');
+            $this->load->view('templates/Entete');
+            $this->load->view('Administrateur/ModifReussie', $DonneesInjectees);
             }
             
-        } //Fin ModifProduit
+        } //Fin ModifPrix
+
+        public function ModifQty($pNoProduit)
+        {
+            echo "No Produit : ".$pNoProduit;
+
+            $this->form_validation->set_rules('NouvQty', 'NouvQty', 'required');
+
+            if ($this->form_validation->run() === FALSE)
+            {
+                $this->load->view('templates/Entete');
+                $this->load->view('Administrateur/ModifQtyProduit');
+                $this->load->view('templates/PiedDePage');
+            }
+            else
+            {
+                $donneesAModifier = array(
+                'QUANTITEENSTOCK' => $this->input->post('NouvQty')  
+            );
+            $this->ModeleAdmin->ModifierUnProduit($donneesAModifier, $pNoProduit);
+            $donneesaInjectee['Quantite'] = $this->input->post('NouvQty');
+            $this->load->view('templates/Entete');
+            $this->load->view('Administrateur/ModifReussie', $DonneesInjectees);
+            }
+        }
     }
 ?>

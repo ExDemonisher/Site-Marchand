@@ -197,8 +197,40 @@ class Visiteur extends CI_Controller
 
     public function BarreDeRecherche()
     {
-        $Liste['BarreDeRecherche']=$this->ModeleArticle->GetBarreDeRecherche($this->input->post('Recherche'));
-        $this->load->view('Visiteur/BarreDeRecherche', $Liste);
-    }
+        $this->load->library('form_validation');
+        $recherche = array( 'LIBELLE' => '' ); // default when no term in session or POST
+            if ($this->input->post('recherche'))
+            {
+                // use the term from POST and set it to session
+                $recherche = array(
+                    'LIBELLE' => $this->input->post('recherche'),
+                    );
+                $this->session->set_userdata('recherche', $recherche);
+            }
+            elseif ($this->session->userdata('recherche'))
+            {
+                // if term is not in POST use existing term from session
+                $recherche = $this->session->userdata('recherche');
+            }
+            
+        $config = array();
+        $config["base_url"] = site_url('Visiteur/BarreDeRecherche');
+        $config["total_rows"] = $this->ModeleArticle->nombreDArticlesnombreDArticlesAvecRecherche($recherche);
+        $config["per_page"] = 3; // nombre d'articles par page
+        $config["uri_segment"] = 3; 
+        $config['first_link'] = 'Premier'; 
+        $config['last_link'] = 'Dernier'; 
+        $config['next_link'] = 'Suivant'; 
+        $config['prev_link'] = 'Précédent';    
+        $this->pagination->initialize($config); 
+        $noPage = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $DonneesInjectees['TitreDeLaPage'] = 'Résultat pour : '.$this->input->post('recherche'); 
+        $DonneesInjectees["liensPagination"] = $this->pagination->create_links(); 
+        $DonneesInjectees["lesArticles"] = $this->ModeleArticle->retournerArticlesLimiteRecherche($config["per_page"], $noPage,$recherche);
+        $this->load->view('templates/Entete'); 
+        $this->load->view("vueMarchand/listerLesArticles", $DonneesInjectees); 
+        $this->load->view('templates/PiedDePage'); 
+    } //Fin BarreDeRecherche
     
 } //Fin Classe
