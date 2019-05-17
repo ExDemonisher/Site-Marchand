@@ -121,7 +121,7 @@
         {
             $pNoProduit = $this->input->post('NoProduit');
             // $pNoProduit = 1;
-            echo "No Produit : ".$pNoProduit;
+            // echo "No Produit : ".$pNoProduit;
 
             $this->form_validation->set_rules('NouvPrix', 'NouvPrix', 'required');
 
@@ -148,7 +148,7 @@
         {
             $pNoProduit = $this->input->post('NoProduit');
             // $pNoProduit = 1;
-            echo "No Produit : ".$pNoProduit;
+            // echo "No Produit : ".$pNoProduit;
 
             $this->form_validation->set_rules('NouvQty', 'NouvQty', 'required');
 

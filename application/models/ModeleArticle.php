@@ -2,7 +2,7 @@
     class ModeleArticle extends CI_Model 
     {
         public function __construct()
-        {
+        { 
             $this->load->database();
             /* chargement database.php (dans config), obligatoirement dans le constructeur */
         }
@@ -35,13 +35,31 @@
 	        }
 	        return false;
         } // Fin RetournerArticlesLimite
-        
-        public function ModeleDeRecherche ($Recherche) {
 
+        public function nombreDArticlesRecherche($pRecherche) 
+        { // méthode utilisée pour la pagination
+            $this->db->select(); 
+            $this->db->like($pRecherche); 
+            return $this->db->count_all_results("produit");
         }
-        
-        public function nombreDArticlesAvecRecherche($Recherche) {
-            
-        }
+
+        public function retournerArticlesLimiteRecherche($nombreDeLignesARetourner, $noPremiereLigneARetourner, $pRecherche)
+        {// Nota Bene : surcharge non supportée par PHP
+            $this->db->limit($nombreDeLignesARetourner, $noPremiereLigneARetourner); 
+            $this->db->select('NOPRODUIT, LIBELLE, DETAIL, PRIXHT, TAUXTVA, NOMIMAGE, QUANTITEENSTOCK, DATEAJOUT, DISPONIBLE'); 
+            $this->db->from('produit'); 
+            $this->db->like($pRecherche); 
+            $this->db->order_by('LIBELLE', 'ASC'); 
+
+            $requete = $this->db->get();
+            if ($requete->num_rows() > 0) 
+            { // si nombre de lignes > 0
+                foreach ($requete->result() as $ligne) {
+                $jeuDEnregistrements[] = $ligne;
+            }
+            return $jeuDEnregistrements;
+            } // fin if
+            return false;
+        } // retournerArticlesLimite
     } // Fin Classe
     

@@ -26,6 +26,9 @@
                 //}
 
             }
+            elseif ((!is_null($this->session->profil)) and ($this->session->profil == "Client")) {
+                ?><a class="btn btn-pimary" class="nav-link active" href="<?php echo base_url().'index.php/Visiteur/AjoutPannier/'.$unArticle['NOPRODUIT'];?>"> Ajouter au Pannier</a><?php
+            } 
         ?>
         
     </body>

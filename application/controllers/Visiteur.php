@@ -129,18 +129,14 @@ class Visiteur extends CI_Controller
     public function Profil() {
         if((!is_null($this->session->profil)) and ($this->session->profil == "Client")):
             //Redirect vers le profil client
+            $this->load->view('templates/entete');
             $this->load->view('Visiteur/Profil');
+            $this->load->view('templates/PiedDePage');
         else:
             // Redirect vers Acceuil
             redirect('Visiteur/PageDAccueilVisiteur');
         endif;
     } //Fin Profil
-
-
-    public function Cart() {
-       
-    
-    } //Fin Cart
 
     public function ListerUnArticle()//Lister tous les articles
     {
@@ -215,7 +211,7 @@ class Visiteur extends CI_Controller
             
         $config = array();
         $config["base_url"] = site_url('Visiteur/BarreDeRecherche');
-        $config["total_rows"] = $this->ModeleArticle->nombreDArticlesnombreDArticlesAvecRecherche($recherche);
+        $config["total_rows"] = $this->ModeleArticle->nombreDArticlesRecherche($recherche);
         $config["per_page"] = 3; // nombre d'articles par page
         $config["uri_segment"] = 3; 
         $config['first_link'] = 'Premier'; 
@@ -229,8 +225,22 @@ class Visiteur extends CI_Controller
         $DonneesInjectees["liensPagination"] = $this->pagination->create_links(); 
         $DonneesInjectees["lesArticles"] = $this->ModeleArticle->retournerArticlesLimiteRecherche($config["per_page"], $noPage,$recherche);
         $this->load->view('templates/Entete'); 
-        $this->load->view("vueMarchand/listerLesArticles", $DonneesInjectees); 
+        $this->load->view("Visiteur/listerLesArticlesAvecPagination", $DonneesInjectees); 
         $this->load->view('templates/PiedDePage'); 
     } //Fin BarreDeRecherche
+    
+    public function AjoutPannier($pNoProduit) {
+        $DonneesInjectees['unArticle'] = $this->ModeleArticle->retournerArticles($noArticle);
+        $Calcul = $noArticle['PRIXHT'] * $unArticle['TAUXTVA'];
+        $DonneesAInserer = array(
+            'id' => $pNoProduit,
+            'qty' => $noArticle['QUANTITEENSTOCK'],
+            'price' => $Calcul,
+            'name' => $noArticle['LIBELLE']
+        );
+
+        $this->cart->insert($DonneesAInserer);
+    
+    } //Fin Cart
     
 } //Fin Classe
