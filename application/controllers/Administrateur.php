@@ -117,8 +117,12 @@
             redirect('Visiteur/PageDAccueilVisiteur');
         } //Fin Disponible
         
-        public function ModifPrix($pNoProduit)
+        public function ModifPrix()
         {
+            $pNoProduit = $this->input->post('NoProduit');
+            // $pNoProduit = 1;
+            echo "No Produit : ".$pNoProduit;
+
             $this->form_validation->set_rules('NouvPrix', 'NouvPrix', 'required');
 
             if ($this->form_validation->run() === FALSE)
@@ -135,13 +139,15 @@
             $this->ModeleAdmin->ModifierUnProduit($donneesAModifier, $pNoProduit); // appel du modèle
             $donneesaInjectee['Prix'] = $this->input->post('NouvPrix');
             $this->load->view('templates/Entete');
-            $this->load->view('Administrateur/ModifReussie', $DonneesInjectees);
+            $this->load->view('Administrateur/ModifReussie', $donneesaInjectee);
             }
             
         } //Fin ModifPrix
 
-        public function ModifQty($pNoProduit)
+        public function ModifQty()
         {
+            $pNoProduit = $this->input->post('NoProduit');
+            // $pNoProduit = 1;
             echo "No Produit : ".$pNoProduit;
 
             $this->form_validation->set_rules('NouvQty', 'NouvQty', 'required');
@@ -160,7 +166,7 @@
             $this->ModeleAdmin->ModifierUnProduit($donneesAModifier, $pNoProduit);
             $donneesaInjectee['Quantite'] = $this->input->post('NouvQty');
             $this->load->view('templates/Entete');
-            $this->load->view('Administrateur/ModifReussie', $DonneesInjectees);
+            $this->load->view('Administrateur/ModifReussie', $donneesaInjectee);
             }
         }
     }
