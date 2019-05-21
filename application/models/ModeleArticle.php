@@ -61,5 +61,30 @@
             } // fin if
             return false;
         } // retournerArticlesLimite
+
+        public function AddCmd($data){
+            $this->db->insert('commande', $data);
+        }//Fin AddCommande
+
+        public function RetournerNoCommande($LeNum) {
+            //SELECT nocommande FROM commande WHERE noclient='1' ORDER BY datecommande DESC LIMIT 1
+            $this->db->order_by('nocommande','DESC');
+            $requete = $this->db->get_where('commande',array('noclient' => $LeNum),0,1);
+            return $requete->row_array();
+        }
+        
+        public function InsertLigne($data) {
+            $this->db->insert('ligne', $data);
+        }
+
+        public function retournerCommande()
+        {
+            $requete = $this->db->get('commande');
+            return $requete->result_array(); 
+        } 
+
+        public function validerCommande($data, $NOCOMMANDE){
+            $this->db->update('commande', $data, array ('NOCOMMANDE' => $NOCOMMANDE));
+        }
     } // Fin Classe
     

@@ -26,9 +26,22 @@
                 //}
 
             }
-            elseif ((!is_null($this->session->profil)) and ($this->session->profil == "Client")) {
-                ?><a class="btn btn-pimary" class="nav-link active" href="<?php echo base_url().'index.php/Visiteur/AjoutPannier/'.$unArticle['NOPRODUIT'];?>"> Ajouter au Pannier</a><?php
-            } 
+            if ($this->session->profil=='Client') :
+                if ($unArticle['DISPONIBLE'] == 1) :
+                    echo validation_errors();
+                    echo form_open('Visiteur/ajouterPanier');
+                    ?>
+                        <input id="noproduit" name="noproduit" type="hidden" value="<?php echo rtrim(print($unArticle['NOPRODUIT']), 1); ?>"/>
+                        <input id="nomproduit" name="nomproduit" type="hidden" value="<?php echo rtrim(print ($unArticle['LIBELLE']), 1); ?>"/>
+                        <input id="prixTTC" name="prixTTC" type="hidden" value="<?php echo(print ($unArticle['PRIXHT'])); ?>"/>
+                        <input id="quantite" name="quantite" type="number" value="<?php echo ('Quantitée a commander'); ?>" min="0" max='<?php print($quantite); ?>'/></label><br/>
+                        <input class="btn btn-primary" type="submit" name="submit" value="Ajouter au panier"/>
+                    <?php
+                else : 
+                    echo 'Article indisponible';
+                endif;
+            endif;
+            
         ?>
         
     </body>

@@ -106,6 +106,7 @@ class Visiteur extends CI_Controller
                 $this->session->nom = $NomProfilRetourne->NOM;
                 $this->session->prenom = $NomProfilRetourne->PRENOM;
                 $this->session->profil = $NomProfilRetourne->PROFIL;
+                $this->session->num = $NomProfilRetourne->NOCLIENT;
 
                 var_dump($NomProfilRetourne);
                 
@@ -229,18 +230,95 @@ class Visiteur extends CI_Controller
         $this->load->view('templates/PiedDePage'); 
     } //Fin BarreDeRecherche
     
-    public function AjoutPannier($pNoProduit) {
-        $DonneesInjectees['unArticle'] = $this->ModeleArticle->retournerArticles($noArticle);
-        $Calcul = $noArticle['PRIXHT'] * $unArticle['TAUXTVA'];
-        $DonneesAInserer = array(
-            'id' => $pNoProduit,
-            'qty' => $noArticle['QUANTITEENSTOCK'],
-            'price' => $Calcul,
-            'name' => $noArticle['LIBELLE']
+    public function ajouterPanier(){
+
+        $noArticle = $this->input->post('noproduit');
+        $nomArticle = $this->input->post('nomproduit');
+        $prixTTC = $this->input->post('prixTTC');
+        $quantite = $this->input->post('quantite');
+        $data = array(
+                 'id' => $noArticle,
+                 'qty'    => $quantite,
+                 'price'    => $prixTTC,
+                 'name'   => $nomArticle
         );
 
-        $this->cart->insert($DonneesAInserer);
-    
-    } //Fin Cart
+        $this->cart->insert($data);
+        $this->session->prixPanier = $this->cart->total();
+        $this->session->totalArticle = $this->cart->total_items();
+
+        redirect('Visiteur/Panier');
+     } //Fin AjoutPanier
+
+    public function modifierPanier(){
+        $NbTotalArt = count($this->cart->contents());
+
+        for ($i=1;$i <= $NbTotalArt;$i++)
+        {
+
+           $data = array(
+              'rowid' => $this->input->post($i.'[rowid]'),
+              'qty' => $this->input->post($i.'[qty]')
+           );
+           $this->cart->update($data);
+        }
+        $this->session->prixPanier = $this->cart->total();
+        $this->session->totalArticle = $this->cart->total_items();
+
+        redirect('Visiteur/Panier');
+
+    } //Fin ModifierPanier
+
+    public function passerCommandes() {
+
+        $data = array(
+           'NOCLIENT' => $this->session->num,
+           'DATECOMMANDE' => date('Y-m-d H:i:s')
+        );
+        var_dump($this->session);
+        $LeNum = $this->session->num;
+        $data = $this->ModeleArticle->AddCmd($data);
+
+        foreach ($this->cart->contents() as $items)
+        {
+            $NoCommande = $this->ModeleArticle->RetournerNoCommande($LeNum);
+            $id= $items['id'];
+            $quantite = $items['qty'];
+            $data = array (
+            'NOCOMMANDE' => $NoCommande['NOCOMMANDE'],
+            'NOPRODUIT' => $id,
+            'QUANTITECOMMANDEE' => $quantite
+            );
+            $this->ModeleArticle->InsertLigne($data);
+        }
+        $this->cart->destroy();
+        redirect('Visiteur/PageDAccueilVisiteur');
+    } //Fin PasserCommande
+
+    public function supprimerDuPanier()
+    {
+        $data = array(
+            'rowid' => $this->uri->segment(3),
+            'qty' => 0
+        );
+        $this->cart->update($data);
+        $this->session->prixPanier = $this->cart->total();
+        $this->session->totalArticle = $this->cart->total_items();
+
+        redirect('Visiteur/panier');
+    } //Fin SupprimerDuPanier
+
+    public function panier() {
+
+        $this->session->prixPanier = $this->cart->total();
+        $this->session->totalArticle = $this->cart->total_items();
+
+        $this->load->view('templates/Entete');
+        $this->load->view("Visiteur/Profil");
+        $this->load->view('templates/PiedDePage');
+
+    }
+
+
     
 } //Fin Classe
